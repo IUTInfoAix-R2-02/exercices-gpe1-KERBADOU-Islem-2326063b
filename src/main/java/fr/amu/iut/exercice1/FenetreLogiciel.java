@@ -7,9 +7,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
-
 import javafx.scene.text.Text;
-import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 
 public class FenetreLogiciel extends Application {
@@ -18,120 +16,112 @@ public class FenetreLogiciel extends Application {
     public void start(Stage primaryStage) {
         BorderPane root = new BorderPane();
 
-        // Menu top left
+        // Top Menu
 
-        // Creation du menu File
+        // File menu creation
         Menu fileMenu = new Menu("File");
         Menu editMenu = new Menu("Edit");
         Menu helpMenu = new Menu("Help");
 
-        // Création des items
-        // Fichier
-        MenuItem item1 = new MenuItem("New");
-        MenuItem item2 = new MenuItem("Open");
-        MenuItem item3 = new MenuItem("Save");
-        MenuItem item4 = new MenuItem("Close");
+        // Creating menu items
+        // File
+        MenuItem newItem = new MenuItem("New");
+        MenuItem openItem = new MenuItem("Open");
+        MenuItem saveItem = new MenuItem("Save");
+        MenuItem closeItem = new MenuItem("Close");
 
         // Edit
-        MenuItem item5 = new MenuItem("Cut");
-        MenuItem item6 = new MenuItem("Copy");
-        MenuItem item7 = new MenuItem("Paste");
+        MenuItem cutItem = new MenuItem("Cut");
+        MenuItem copyItem = new MenuItem("Copy");
+        MenuItem pasteItem = new MenuItem("Paste");
 
-        // Ajout des items
-        fileMenu.getItems().addAll(item1, item2, item3, item4);
-        editMenu.getItems().addAll(item5, item6, item7);
+        // Adding items
+        fileMenu.getItems().addAll(newItem, openItem, saveItem, closeItem);
+        editMenu.getItems().addAll(cutItem, copyItem, pasteItem);
 
         MenuBar menuBar = new MenuBar(fileMenu, editMenu, helpMenu);
 
         root.setTop(menuBar);
 
-        // Boutons midLeft
+        // Left Buttons
         HBox midControls = new HBox();
-        VBox h1 = new VBox();
+        VBox leftBox = new VBox();
 
+        Label buttonLabel = new Label("Boutons:");
 
+        Button button1 = new Button("Bouton 1");
+        Button button2 = new Button("Bouton 2");
+        Button button3 = new Button("Bouton 3");
 
-        Label text = new Label("Boutons :");
-
-        Button btn1 = new Button("Bouton 1");
-        Button btn2 = new Button("Bouton 2");
-        Button btn3 = new Button("Bouton 3");
-        Separator sepa =  new Separator(Orientation.VERTICAL);
-
-
-
-        h1.setSpacing(10);
+        leftBox.setSpacing(10);
         midControls.setSpacing(10);
-        h1.getChildren().addAll(text, btn1, btn2, btn3);
+        leftBox.getChildren().addAll(buttonLabel, button1, button2, button3);
 
-        h1.setAlignment(Pos.CENTER_LEFT);
-        h1.setAlignment(Pos.CENTER);
-        text.setAlignment(Pos.CENTER);
+        leftBox.setAlignment(Pos.CENTER_LEFT);
+        leftBox.setAlignment(Pos.CENTER);
+        buttonLabel.setAlignment(Pos.CENTER);
 
-        midControls.getChildren().addAll(h1, new Separator(Orientation.VERTICAL));
+        midControls.getChildren().addAll(leftBox, new Separator(Orientation.VERTICAL));
 
         root.setLeft(midControls);
 
-        // FORM
+        // Form
 
-        VBox millieu = new VBox();
-        HBox form = new HBox();
-        HBox boutton = new HBox();
+        VBox centerBox = new VBox();
+        HBox formBox = new HBox();
+        HBox buttonBox = new HBox();
 
-        form.setAlignment(Pos.CENTER);
-        form.setSpacing(10);
+        formBox.setAlignment(Pos.CENTER);
+        formBox.setSpacing(10);
 
-        GridPane gridpane = new GridPane();
-        gridpane.setVgap(10);
-        millieu.setSpacing(10);
+        GridPane gridPane = new GridPane();
+        gridPane.setVgap(10);
+        centerBox.setSpacing(10);
 
-        gridpane.add(new TextField(), 2, 0);
-        gridpane.add(new Label("Name:"), 1, 0);
+        gridPane.add(new TextField(), 2, 0);
+        gridPane.add(new Label("Name:"), 1, 0);
 
-        gridpane.add(new TextField(), 2, 1);
-        gridpane.add(new Label("Email:"), 1, 1);
+        gridPane.add(new TextField(), 2, 1);
+        gridPane.add(new Label("Email:"), 1, 1);
 
-        gridpane.add(new TextField(), 2, 2);
-        gridpane.add(new Label("Password:"), 1, 2);
+        gridPane.add(new TextField(), 2, 2);
+        gridPane.add(new Label("Password:"), 1, 2);
 
-        Button btn4 = new Button("Submit");
-        Button btn5 = new Button("Cancel");
+        Button submitButton = new Button("Submit");
+        Button cancelButton = new Button("Cancel");
 
-        form.getChildren().addAll(gridpane);
-        boutton.getChildren().addAll(btn4, btn5);
-        millieu.getChildren().addAll(form, boutton);
+        formBox.getChildren().addAll(gridPane);
+        buttonBox.getChildren().addAll(submitButton, cancelButton);
+        centerBox.getChildren().addAll(formBox, buttonBox);
 
-        gridpane.setAlignment(Pos.CENTER);
-        boutton.setAlignment(Pos.CENTER);
-        boutton.setSpacing(10);
-        millieu.setAlignment(Pos.CENTER);
+        gridPane.setAlignment(Pos.CENTER);
+        buttonBox.setAlignment(Pos.CENTER);
+        buttonBox.setSpacing(10);
+        centerBox.setAlignment(Pos.CENTER);
 
-        root.setCenter(millieu);
+        root.setCenter(centerBox);
 
-        // Label du bas
+        // Bottom Label
 
-        VBox labelhBox = new VBox();
-        labelhBox.setAlignment(Pos.CENTER);
-        Text label = new Text("Ceci est un label de base de page");
-        labelhBox.getChildren().addAll(new Separator(), label);
-        root.setBottom(labelhBox);
+        VBox bottomLabelBox = new VBox();
+        bottomLabelBox.setAlignment(Pos.CENTER);
+        Text bottomLabel = new Text("Ceci est un label de bas de page");
+        bottomLabelBox.getChildren().addAll(new Separator(), bottomLabel);
+        root.setBottom(bottomLabelBox);
 
+        // Adding to VBox and creating the stage
 
-        // Ajout dans vBox et création du stage
+        Scene scene = new Scene(root);
 
-        Scene scene = new Scene( root );
-
-        primaryStage.setScene( scene );
-        primaryStage.setWidth( 800 );
-        primaryStage.setHeight( 600 );
-        primaryStage.setTitle("Premier exemple manipulant les conteneurs");
+        primaryStage.setScene(scene);
+        primaryStage.setWidth(800);
+        primaryStage.setHeight(600);
+        primaryStage.setTitle("Premier exemple manipulant les conteneur");
 
         primaryStage.show();
     }
 
     public static void main(String[] args) {
         launch(args);
-
     }
 }
-
