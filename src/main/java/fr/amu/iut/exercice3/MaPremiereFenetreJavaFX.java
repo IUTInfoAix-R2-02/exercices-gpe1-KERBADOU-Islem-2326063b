@@ -11,6 +11,8 @@ public class MaPremiereFenetreJavaFX extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
+        primaryStage.setWidth(400);
+        primaryStage.setHeight(400);
         primaryStage.setTitle("La page d'un Pro de JavaFX");
         primaryStage.show();
     }
