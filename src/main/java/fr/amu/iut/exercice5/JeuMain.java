@@ -5,6 +5,7 @@ import javafx.scene.Scene;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
 public class JeuMain extends Application {
@@ -21,19 +22,23 @@ public class JeuMain extends Application {
         //Acteurs du jeu
         Personnage pacman = new Pacman();
         Personnage fantome = new Fantome();
+        Obstacle obstacle = new Obstacle();
+
         // on positionne le fantôme 20 positions vers la droite
         fantome.setLayoutX(20 * 10);
         //panneau du jeu
         Pane jeu = new Pane();
+
         jeu.setPrefSize(640, 480);
         jeu.getChildren().add(pacman);
         jeu.getChildren().add(fantome);
+        jeu.getChildren().add(obstacle);
         root.setCenter(jeu);
         //on construit une scene 640 * 480 pixels
         scene = new Scene(root);
 
         //Gestion du déplacement du personnage
-        deplacer(pacman, fantome);
+        deplacer(pacman, fantome, obstacle);
 
         primaryStage.setTitle("... Pac Man ...");
 
@@ -49,7 +54,7 @@ public class JeuMain extends Application {
      * @param j1
      * @param j2
      */
-    private void deplacer(Personnage j1, Personnage j2) {
+    private void deplacer(Personnage j1, Personnage j2, Obstacle obstacle) {
         scene.setOnKeyPressed((KeyEvent event) -> {
             switch (event.getCode()) {
                 case LEFT:
@@ -79,6 +84,10 @@ public class JeuMain extends Application {
             }
             if (j1.estEnCollision(j2)) {
                 System.out.println("Collision....");
+                System.exit(0);
+            }
+
+            else if (j1.obstacleCollision(obstacle)){
                 System.exit(0);
             }
         });

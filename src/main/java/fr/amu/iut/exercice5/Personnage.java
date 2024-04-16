@@ -3,6 +3,7 @@ package fr.amu.iut.exercice5;
 import javafx.scene.Group;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
+import javafx.scene.shape.Rectangle;
 
 class Personnage extends Group {
     protected final static double LARGEUR_MOITIE_PERSONNAGE = 10;
@@ -71,4 +72,8 @@ class Personnage extends Group {
                 || autrePersonnage.getBoundsInParent().contains(getBoundsInParent());
     }
 
+    boolean obstacleCollision(Obstacle obstacle) {
+        return getBoundsInParent().contains(obstacle.getBoundsInParent())
+                || obstacle.getBoundsInParent().contains(getBoundsInParent());
+    }
 }
