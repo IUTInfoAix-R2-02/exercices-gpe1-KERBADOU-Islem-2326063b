@@ -1,6 +1,11 @@
-package fr.amu.iut.exercice1;
+package fr.amu.iut.exercice11;
 
 import javafx.application.Application;
+import javafx.beans.Observable;
+import javafx.beans.binding.Bindings;
+import javafx.beans.property.*;
+import javafx.beans.value.ObservableBooleanValue;
+import javafx.event.Event;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -14,6 +19,8 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 
+import static javafx.beans.binding.Bindings.concat;
+
 @SuppressWarnings("Duplicates")
 public class Palette extends Application {
 
@@ -21,6 +28,11 @@ public class Palette extends Application {
     private int nbRouge = 0;
     private int nbBleu = 0;
 
+    private IntegerProperty nbFois;
+
+    private StringProperty message;
+
+    private StringProperty couleurPanneau;
     private Label texteDuHaut;
 
     private Button vert;
@@ -33,7 +45,16 @@ public class Palette extends Application {
 
     private Label texteDuBas;
 
+    public void createBindings(){
+        BooleanProperty pasEncoreClic = new SimpleBooleanProperty();
 
+        pasEncoreClic.bind(Bindings.equal(0, nbFois));
+        texteDuHaut.textProperty().bind(Bindings.when(pasEncoreClic).then(concat("Pas Encore Cliqué ...")).otherwise(concat(message,  " choisi ", nbFois.asString(), " fois")));
+        panneau.styleProperty().bind(concat("-fx-background-color:", couleurPanneau));
+
+        texteDuBas.textProperty().bind(Bindings.when(pasEncoreClic).then(concat("Clique sur un bouton allez ...")).otherwise(concat(message, " est une jolie couleur !")));
+        texteDuBas.styleProperty().bind(concat("-fx-text-fill: ", couleurPanneau));
+    }
     @Override
     public void start(Stage primaryStage) {
         root = new BorderPane();
@@ -57,7 +78,35 @@ public class Palette extends Application {
         rouge = new Button("Rouge");
         bleu = new Button("Bleu");
 
-        /* VOTRE CODE ICI */
+        nbFois = new SimpleIntegerProperty();
+        message = new SimpleStringProperty();
+        couleurPanneau = new SimpleStringProperty("#000000");
+
+        createBindings();
+
+        vert.setOnAction(event -> {
+            nbFois.setValue(++nbVert);
+            // texteDuHaut.setText("Vert choisi " + nbFois.get() + " fois");
+
+            message.setValue(vert.getText());
+            couleurPanneau.setValue("#008000;");
+        });
+
+        rouge.setOnAction(event -> {
+            nbFois.setValue(++nbRouge);
+            // texteDuHaut.setText("Rouge choisi " + nbFois.get() + " fois");
+
+            message.setValue(rouge.getText());
+            couleurPanneau.setValue("#FF0000;");
+        });
+
+        bleu.setOnAction(event -> {
+            nbFois.setValue(++nbBleu);;
+            // texteDuHaut.setText("Bleu choisi " + nbFois.get() + " fois");
+
+            message.setValue(bleu.getText());
+            couleurPanneau.setValue("#0000ff;");
+        });
 
         boutons.getChildren().addAll(vert, rouge, bleu);
 
