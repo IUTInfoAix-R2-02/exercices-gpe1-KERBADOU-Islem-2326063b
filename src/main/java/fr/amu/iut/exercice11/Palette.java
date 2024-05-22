@@ -78,6 +78,7 @@ public class Palette extends Application {
         rouge = new Button("Rouge");
         bleu = new Button("Bleu");
 
+        
         nbFois = new SimpleIntegerProperty();
         message = new SimpleStringProperty();
         couleurPanneau = new SimpleStringProperty("#000000");
